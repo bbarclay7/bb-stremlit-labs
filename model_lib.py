@@ -1,4 +1,3 @@
-import numpy as np
 
 import numpy as np
 from scipy.stats import beta
@@ -32,7 +31,7 @@ def simulate_job_search(number_of_months_looking, optimistic_months, likely_mont
 
 
 
-def mcmc_simulation(options, num_iterations=10000):
+def simulation(options, num_iterations=10000):
     npv_differences = []
     option1_payment_timeline = []
     option2_payment_timeline = []
