@@ -12,8 +12,8 @@ def plot_npv_differences(npv_differences):
     plt.figure(figsize=(10, 6))
     plt.hist(npv_differences, bins=50, color='skyblue', edgecolor='black', alpha=0.7)
     plt.axvline(0, color='red', linestyle='dashed', linewidth=2, label="No Difference (0)")
-    plt.title('Distribution of NPV Difference (Stay in Current Job - Take Enhanced Retirement)')
-    plt.xlabel('NPV Difference (Stay in Current Job - Take Enhanced Retirement)')
+    plt.title('Histogram of Sim Results\n$NPV($Stay in Current Job$) - NPV($Take Enhanced Retirement$)$ ')
+    plt.xlabel('''NPV difference in today's Dollars''')
     plt.ylabel('Frequency')
     plt.legend()
     plt.grid(True)
@@ -51,7 +51,7 @@ def plot_payment_timeline(option1_payment_timeline, option2_payment_timeline, ti
     plt.fill_between(months, percentile10_option1, percentile90_option1, color='blue', alpha=0.2)
     plt.plot(months, mean_option2_payments, label="Option 2: Take Enhanced Retirement", marker='o', linestyle='-', color='green')
     plt.fill_between(months, percentile10_option2, percentile90_option2, color='green', alpha=0.2)
-    plt.title('Monthly Expected Payments')
+    plt.title('Income')
     plt.xlabel('Month')
     plt.ylabel('Payment ($)')
     plt.legend()
@@ -63,7 +63,7 @@ def plot_payment_timeline(option1_payment_timeline, option2_payment_timeline, ti
     plt.fill_between(months, cumulative_percentile10_option1, cumulative_percentile90_option1, color='blue', alpha=0.2)
     plt.plot(months, cumulative_mean_option2, label="Option 2: Take Enhanced Retirement", marker='o', linestyle='-', color='green')
     plt.fill_between(months, cumulative_percentile10_option2, cumulative_percentile90_option2, color='green', alpha=0.2)
-    plt.title('Cumulative Payments Over Time')
+    plt.title('Cumulative Income')
     plt.xlabel('Month')
     plt.ylabel('Cumulative Payment ($)')
     plt.legend()
@@ -143,25 +143,26 @@ if st.button("Run Simulation"):
 
     npv_differences, option1_payment_timeline, option2_payment_timeline = simulation(options, num_iterations=10000)
 
-    # Plot results
-    # matplotlib is not thread safe; streamlit recommends mutexing it
-    _lock.acquire()
-    plot_npv_differences(npv_differences)
-    plot_payment_timeline(option1_payment_timeline, option2_payment_timeline, options["time_horizon_months"])
-    _lock.release()
-
     # Summary statistics
+    st.write("## Summary Statisitics")
     st.write(f"Mean NPV Difference (Stay in Current Job - Take Enhanced Retirement): ${np.mean(npv_differences):,.2f}")
     st.write(f"Probability Staying in Current Job is Superior: {np.mean(np.array(npv_differences) > 0) * 100:.2f}%")
     st.write(f"Probability Taking Enhanced Retirement is Superior: {np.mean(np.array(npv_differences) < 0) * 100:.2f}%")
+    
+    # Plot results
+    # matplotlib is not thread safe; streamlit recommends mutexing it
+    _lock.acquire()
+    st.write("## Simulation Results")
 
+    plot_npv_differences(npv_differences)
     st.markdown("""
-### How to Interpret the Graph:
-1. **Histogram:** The x-axis represents the difference in NPV (Net Present Value) between staying in your current job (Option 1) and taking the enhanced retirement offer (Option 2). The y-axis represents the frequency of occurrences for different NPV differences across the simulated scenarios.
+1. **Histogram notes:** The x-axis represents the difference in NPV (Net Present Value) between staying in your current job (Option 1) and taking the enhanced retirement offer (Option 2). The y-axis represents the frequency of occurrences for different NPV differences across the simulated scenarios.
     - **Red Line (0 NPV Difference):** Marks the point where both options have the same NPV.
     - If the bars are mostly to the left (negative NPV difference), **Option 2 (Take Enhanced Retirement)** is generally better.
-    - If the bars are mostly to the right (positive NPV difference), **Option 1 (Stay in Current Job)** is generally better.
-
-2. **Payment Timeline:** The timeline shows expected monthly payments and cumulative payments for each option over the time horizon, allowing you to visualize cash flows and how each decision plays out over time.
+    - If the bars are mostly to the right (positive NPV difference), **Option 1 (Stay in Current Job)** is generally better.""")
+    plot_payment_timeline(option1_payment_timeline, option2_payment_timeline, options["time_horizon_months"])
+    _lock.release()
+    st.markdown("""
+    2. **Income Timeline Notes:** The timeline shows expected monthly payments and cumulative payments for each option over the time horizon, allowing you to visualize cash flows and how each decision plays out over time.  Note the shading indicates uncertainty.  The shared area covers the results of all simulations, while the solid line follows the average trajectory.
 """)
     
