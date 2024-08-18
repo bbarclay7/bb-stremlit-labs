@@ -67,11 +67,11 @@ st.markdown("""
 
 # Input parameters
 
-st.write("## Salary Information for current position")
+st.write("## Current position")
 yearly_salary_before_tax = st.slider("Annual Salary Before Tax for Current Job ($)", min_value=30000, max_value=400000, value=100000, step=5000)
-monthly_tax_rate_option1 = st.slider("Monthly Tax Rate (%)", min_value=0.0, max_value=1.0, value=0.3, step=0.01)
+monthly_tax_rate_option1 = st.slider("Tax Rate (%)", min_value=0.0, max_value=1.0, value=0.3, step=0.01)
 monthly_salary_after_tax = (yearly_salary_before_tax / 12) * (1 - monthly_tax_rate_option1)
-prob_job_loss = st.slider("Probability of Job Loss in the next 12 months (%)", min_value=0.0, max_value=100., value=10., step=1.) / 100. / 12.
+prob_job_loss = st.slider("Probability of job loss in the next 12 months (%)", min_value=0.0, max_value=100., value=10., step=1.) / 100. / 12.
 
 
 st.write("## Enhanced retirement offer")
@@ -91,7 +91,7 @@ pessimistic_months = st.slider(
     "Pessimistic months to find a job",
     min_value=0., max_value=24., value=18., step=1.)
 
-expected_new_job_salary = st.slider("Expected New Job Annual Salary ($)", min_value=30000, max_value=400000, value=90000, step=5000)
+expected_new_job_salary = st.slider("Estimated New Job Annual Salary ($)", min_value=30000, max_value=400000, value=90000, step=5000)
 
 st.write("## Calculation constraints")
 discount_rate = st.slider("Discount Rate (%) (for NPV calculation)", min_value=0.0, max_value=0.1, value=0.05, step=0.01)
