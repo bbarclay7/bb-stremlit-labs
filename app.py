@@ -88,7 +88,7 @@ st.write("**Disclaimer**: The information provided by this application is for ge
 # Blurb on how to interpret the graph
 
 st.write("""## Directions
-1. Adjust sliders to match your research (default values are arbitrary)
+1. Adjust sliders to match your situation (default values are arbitrary!)
 2. Click "Run Simulation" button at the bottom.
 3. Wait a moment then read the results that appear below the "Run Simulation" button.
 """)
