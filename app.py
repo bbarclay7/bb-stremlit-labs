@@ -23,25 +23,46 @@ def plot_payment_timeline(option1_payment_timeline, option2_payment_timeline, ti
     # Calculate mean payments across all simulations
     mean_option1_payments = np.mean(option1_payment_timeline, axis=0)
     mean_option2_payments = np.mean(option2_payment_timeline, axis=0)
-    cumulative_option1 = np.cumsum(mean_option1_payments)
-    cumulative_option2 = np.cumsum(mean_option2_payments)
+    
+    # Calculate the 10th and 90th percentiles for shading
+    percentile10_option1 = np.percentile(option1_payment_timeline, 10, axis=0)
+    percentile90_option1 = np.percentile(option1_payment_timeline, 90, axis=0)
+    percentile10_option2 = np.percentile(option2_payment_timeline, 10, axis=0)
+    percentile90_option2 = np.percentile(option2_payment_timeline, 90, axis=0)
+    
+    # Calculate cumulative payments and their percentiles
+    cumulative_option1 = np.cumsum(option1_payment_timeline, axis=1)
+    cumulative_option2 = np.cumsum(option2_payment_timeline, axis=1)
+    cumulative_mean_option1 = np.mean(cumulative_option1, axis=0)
+    cumulative_mean_option2 = np.mean(cumulative_option2, axis=0)
+    cumulative_percentile10_option1 = np.percentile(cumulative_option1, 10, axis=0)
+    cumulative_percentile90_option1 = np.percentile(cumulative_option1, 90, axis=0)
+    cumulative_percentile10_option2 = np.percentile(cumulative_option2, 10, axis=0)
+    cumulative_percentile90_option2 = np.percentile(cumulative_option2, 90, axis=0)
+    
+    # Create months array for x-axis
+    months = np.arange(1, time_horizon_months + 1)
 
-    # Plot the timelines
-    months = list(range(1, time_horizon_months + 1))
+    # Plotting the monthly payments
     plt.figure(figsize=(14, 8))
     
     plt.subplot(2, 1, 1)
-    plt.plot(months, mean_option1_payments, label="Option 1: Stay in Current Job", color='blue')
-    plt.plot(months, mean_option2_payments, label="Option 2: Take Enhanced Retirement", color='green')
+    plt.plot(months, mean_option1_payments, label="Option 1: Stay in Current Job", marker='o', linestyle='-', color='blue')
+    plt.fill_between(months, percentile10_option1, percentile90_option1, color='blue', alpha=0.2)
+    plt.plot(months, mean_option2_payments, label="Option 2: Take Enhanced Retirement", marker='o', linestyle='-', color='green')
+    plt.fill_between(months, percentile10_option2, percentile90_option2, color='green', alpha=0.2)
     plt.title('Monthly Expected Payments')
     plt.xlabel('Month')
     plt.ylabel('Payment ($)')
     plt.legend()
     plt.grid(True)
 
+    # Plotting the cumulative payments
     plt.subplot(2, 1, 2)
-    plt.plot(months, cumulative_option1, label="Option 1: Cumulative Payments", color='blue')
-    plt.plot(months, cumulative_option2, label="Option 2: Cumulative Payments", color='green')
+    plt.plot(months, cumulative_mean_option1, label="Option 1: Stay in Current Job", marker='o', linestyle='-', color='blue')
+    plt.fill_between(months, cumulative_percentile10_option1, cumulative_percentile90_option1, color='blue', alpha=0.2)
+    plt.plot(months, cumulative_mean_option2, label="Option 2: Take Enhanced Retirement", marker='o', linestyle='-', color='green')
+    plt.fill_between(months, cumulative_percentile10_option2, cumulative_percentile90_option2, color='green', alpha=0.2)
     plt.title('Cumulative Payments Over Time')
     plt.xlabel('Month')
     plt.ylabel('Cumulative Payment ($)')
