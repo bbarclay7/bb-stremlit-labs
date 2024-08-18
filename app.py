@@ -97,33 +97,37 @@ st.write("""## Directions
 # Input parameters
 
 st.write("## Current position")
-yearly_salary_before_tax = st.slider("Annual Salary Before Tax for Current Job ($)", min_value=30000, max_value=400000, value=100000, step=5000)
-monthly_tax_rate_option1 = st.slider("Tax Rate (%)", min_value=0.0, max_value=1.0, value=0.3, step=0.01)
+yearly_salary_before_tax = st.slider("Annual Salary Before Tax for Current Job ($)", min_value=30000, max_value=400000, value=100000, step=1000)
+monthly_tax_rate_option1 = st.slider("Tax Rate (%)", min_value=0, max_value=100, value=30, step=1) / 100.
 monthly_salary_after_tax = (yearly_salary_before_tax / 12) * (1 - monthly_tax_rate_option1)
-prob_job_loss = st.slider("Probability of job loss in the next 12 months (%)", min_value=0.0, max_value=100., value=10., step=1.) / 100. / 12.
+prob_job_loss = st.slider("Probability of job loss in the next 12 months (%)", min_value=0, max_value=100, value=10, step=1) / 100. / 12.
 
 
 st.write("## Enhanced retirement offer")
-lump_sum = st.number_input("Lump Sum Before Tax ($)", value=75000)
-lump_sum_tax_rate = st.slider("Lump Sum Tax Rate (%)", min_value=0.0, max_value=1.0, value=0.5, step=0.01)
+
+lump_sum = st.slider("Lump Sum Before Tax ($)", min_value=0, max_value=400000, value=75000, step=1000)
+
+
+#lump_sum = st.number_input("Lump Sum Before Tax ($)", value=75000)
+lump_sum_tax_rate = st.slider("Lump Sum Tax Rate (%)", min_value=0, max_value=100, value=50, step=1) / 100.
 
 st.write("## Job hunt parameters")
-optimistic_months = st.slider(
+optimistic_months = 1.0*st.slider(
     "Optimistic months to find a job",
-    min_value=0., max_value=24., value=2., step=1.)
+    min_value=0, max_value=24, value=2, step=1)
 
-likely_months = st.slider(
+likely_months = 1.0*st.slider(
     "Likely months to find a job",
-    min_value=0., max_value=24., value=9., step=1.)
+    min_value=0, max_value=24, value=9, step=1)
 
-pessimistic_months = st.slider(
+pessimistic_months = 1.0*st.slider(
     "Pessimistic months to find a job",
-    min_value=0., max_value=24., value=18., step=1.)
+    min_value=0, max_value=24, value=18, step=1)
 
-expected_new_job_salary = st.slider("Estimated New Job Annual Salary ($)", min_value=30000, max_value=400000, value=90000, step=5000)
+expected_new_job_salary = st.slider("Estimated New Job Annual Salary ($)", min_value=30000, max_value=400000, value=90000, step=1000)
 
 st.write("## Calculation constraints")
-discount_rate = st.slider("Discount Rate (%) (for NPV calculation)", min_value=0.0, max_value=0.1, value=0.05, step=0.01)
+discount_rate = st.slider("Discount Rate (%) (for NPV calculation)", min_value=0, max_value=30, value=5, step=1) / 100.
 time_horizon_months = st.slider("Time Horizon (Months)", min_value=12, max_value=60, value=24)
 
 
