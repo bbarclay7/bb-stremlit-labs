@@ -133,7 +133,7 @@ time_horizon_months = st.slider("Time Horizon (Months)", min_value=12, max_value
 
 
 st.markdown("""## Implementation notes
-The job search simulation utilizes a Monte Carlo approach, running 10,000 iterations to estimate the income streams of continuing current employment versus accepting an enhanced retirement offer. It dynamically models the risk of job loss and the subsequent job-hunting phase, using user-defined optimistic, pessimistic, and most likely durations to shape the job-finding probabilities with a Beta-PERT distribution. Both employment scenarios—staying in the current job or opting for retirement—converge on identical job-hunting dynamics.  Model code can be seen [here](https://github.com/bbarclay7/bb-stremlit-labs/blob/main/model_lib.py).
+The job search simulation utilizes a Monte Carlo approach, running 10,000 iterations to estimate the income streams of continuing current employment versus accepting an enhanced retirement offer. It dynamically models the risk of job loss and the subsequent job-hunting phase, using user-defined optimistic, pessimistic, and most likely durations to shape the job-finding probabilities with a [Beta-PERT](https://www.riskamp.com/beta-pert) distribution. Both employment scenarios—staying in the current job or opting for retirement—converge on identical job-hunting dynamics.  Model code can be seen [here](https://github.com/bbarclay7/bb-stremlit-labs/blob/main/model_lib.py).
 """)
 
 
