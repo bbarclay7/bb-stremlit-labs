@@ -144,7 +144,7 @@ if st.button("Run Simulation"):
     npv_differences, option1_payment_timeline, option2_payment_timeline = simulation(options, num_iterations=10000)
 
     # Summary statistics
-    st.write("## Summary Statisitics")
+    st.write("## Summary")
     st.write(f"Mean NPV Difference (Stay in Current Job - Take Enhanced Retirement): ${np.mean(npv_differences):,.2f}")
     st.write(f"Probability Staying in Current Job is Superior: {np.mean(np.array(npv_differences) > 0) * 100:.2f}%")
     st.write(f"Probability Taking Enhanced Retirement is Superior: {np.mean(np.array(npv_differences) < 0) * 100:.2f}%")
