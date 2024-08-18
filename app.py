@@ -3,6 +3,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import streamlit as st
 from mcmc_lib import mcmc_simulation
+import threading
+_lock = threading.RLock()
+from matplotlib.backends.backend_agg import RendererAgg
+
 
 def plot_npv_differences(npv_differences):
     plt.figure(figsize=(10, 6))
@@ -119,8 +123,11 @@ if st.button("Run Simulation"):
     npv_differences, option1_payment_timeline, option2_payment_timeline = mcmc_simulation(options, num_iterations=10000)
 
     # Plot results
+    # matplotlib is not thread safe; streamlit recommends mutexing it
+    _lock.acquire()
     plot_npv_differences(npv_differences)
     plot_payment_timeline(option1_payment_timeline, option2_payment_timeline, options["time_horizon_months"])
+    _lock.release()
 
     # Summary statistics
     st.write(f"Mean NPV Difference (Stay in Current Job - Take Enhanced Retirement): ${np.mean(npv_differences):,.2f}")
