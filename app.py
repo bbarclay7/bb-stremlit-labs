@@ -58,7 +58,7 @@ st.write("Disclaimer: The information provided by this application is for genera
 # Blurb on how to interpret the graph
 st.markdown("""
 ### Option 1: Stay in Current Job
-- You continue receiving your monthly salary, but there is a risk that you may be laid off unexpectedly. If either event occurs, you transition to job hunting without receiving a lump sum.
+- You continue receiving your monthly salary, but there is a risk that you may be laid off unexpectedly. If this event occurs, you transition to job hunting without receiving a lump sum.
 
 ### Option 2: Take Enhanced Retirement
 - You receive a lump-sum payment (after taxes) and seek a new job. There’s a risk of not finding a comparable job, which would leave you reliant on the lump sum.
@@ -100,7 +100,7 @@ time_horizon_months = st.slider("Time Horizon (Months)", min_value=12, max_value
 
 
 st.markdown("""## Implementation notes
-The job search simulation we've developed utilizes a Monte Carlo Markov Chain (MCMC) approach, running 10,000 iterations to estimate the financial outcomes of continuing current employment versus accepting an enhanced retirement offer. It dynamically models the risk of job loss and the subsequent job-hunting phase, using user-defined optimistic, pessimistic, and most likely durations to shape the job-finding probabilities with a Beta-PERT distribution. Both employment scenarios—staying in the current job or opting for retirement—converge on identical job-hunting dynamics, providing a robust analysis of potential financial implications and aiding users in making informed decisions under uncertain job security conditions.
+The job search simulation utilizes a Monte Carlo Markov Chain (MCMC) approach, running 10,000 iterations to estimate the financial outcomes of continuing current employment versus accepting an enhanced retirement offer. It dynamically models the risk of job loss and the subsequent job-hunting phase, using user-defined optimistic, pessimistic, and most likely durations to shape the job-finding probabilities with a Beta-PERT distribution. Both employment scenarios—staying in the current job or opting for retirement—converge on identical job-hunting dynamics.  Model code can be seen [here](https://github.com/bbarclay7/bb-stremlit-labs/blob/main/mcmc_lib.py).
 """)
 
 
