@@ -74,8 +74,17 @@ def plot_payment_timeline(option1_payment_timeline, option2_payment_timeline, ti
 
 # Streamlit app layout
 st.title("Enhanced Retirement Decision Analysis")
-st.write("This tool helps you evaluate whether to take an enhanced retirement offer or continue employment by simulating possible outcomes based on your assumptions.")
-st.write("Disclaimer: The information provided by this application is for general informational and educational purposes only. All information on the app is provided in good faith, however we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any information on the app. Under no circumstance shall we have any liability to you for any loss or damage of any kind incurred as a result of the use of the app or reliance on any information provided on the app. Your use of the app and your reliance on any information on the app is solely at your own risk. This application does not offer real-time data or comprehensive analysis and should not be used for making actual job-related or financial decisions. The output of the app should not be interpreted as a definite offer, career advice, or a guarantee of employment.")
+st.write("This tool helps you evaluate whether to take an enhanced retirement offer or continue employment by simulating possible outcomes based on your assumptions.  Two options are modeled:")
+
+st.markdown("""
+**Option 1**: Stay in Current Job. You continue receiving your monthly salary, but there is a risk that you may be laid off unexpectedly. If this event occurs, you transition to job hunting without receiving a lump sum.
+
+**Option 2**: Take Enhanced Retirement.  You receive a lump-sum payment (after taxes) and seek a new job. Then you transition to job hunting.
+
+""")
+
+
+st.write("**Disclaimer**: The information provided by this application is for general informational and educational purposes only. All information on the app is provided in good faith, however we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any information on the app. Under no circumstance shall we have any liability to you for any loss or damage of any kind incurred as a result of the use of the app or reliance on any information provided on the app. Your use of the app and your reliance on any information on the app is solely at your own risk. This application does not offer real-time data or comprehensive analysis and should not be used for making actual job-related or financial decisions. The output of the app should not be interpreted as a definite offer, career advice, or a guarantee of employment.")
 # Blurb on how to interpret the graph
 
 st.write("""## Directions
@@ -84,14 +93,6 @@ st.write("""## Directions
 3. Wait a moment then read the results that appear below the "Run Simulation" button.
 """)
 
-st.markdown("""
-### Option 1: Stay in Current Job
-- You continue receiving your monthly salary, but there is a risk that you may be laid off unexpectedly. If this event occurs, you transition to job hunting without receiving a lump sum.
-
-### Option 2: Take Enhanced Retirement
-- You receive a lump-sum payment (after taxes) and seek a new job. There’s a risk of not finding a comparable job, which would leave you reliant on the lump sum.
-
-""")
 
 # Input parameters
 
